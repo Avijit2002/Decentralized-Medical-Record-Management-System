@@ -1,0 +1,35 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/MedicalRecords.sol": {
+      "content": "pragma solidity ^0.8.0;\r\n\r\ncontract MedicalRecords {\r\n    struct Record {\r\n        string name;\r\n        string dataHash;\r\n        address owner;\r\n        address[] allowed;\r\n    }\r\n\r\n    mapping( address => Record[]) db;  // ye hai patient to record list\r\n    mapping( address => address[]) acc; // ye hai patient ka doc access list\r\n    mapping( address => address[]) plist; // ye hai doctor ka patient list\r\n    //address[] patientList; \r\n    //address[] Plist;\r\n    \r\n\r\n    function createRecordbyDOC(address _useraddress, string memory _name, string memory _dataHash) public {\r\n        require(Isallowed(msg.sender,_useraddress),\"Not allowed\");\r\n        db[_useraddress].push(Record(_name, _dataHash, _useraddress, new address[](0)));\r\n    }\r\n    function createRecordbyowner( string memory _name, string memory _dataHash) public{\r\n        //require(msg.sender==db[_useraddress][0].owner,\"Not allowed\");\r\n        db[msg.sender].push(Record(_name, _dataHash, msg.sender, new address[](0)));\r\n    }\r\n\r\n    function getRecord(address _useraddress) public view returns(Record[] memory){\r\n        require(Isallowed(msg.sender,_useraddress)||msg.sender==db[_useraddress][0].owner,\"Not Allowed\");\r\n        return db[_useraddress];\r\n    }\r\n\r\n    function grantAccess(address _docAddress) public{\r\n        acc[msg.sender].push(_docAddress);\r\n        plist[_docAddress].push(msg.sender);\r\n    }\r\n\r\n    function revokeAccess(address docAddress) public{\r\n        uint i;\r\n        uint j;\r\n        for(i=0;i<acc[msg.sender].length;i++){\r\n            if(acc[msg.sender][i]==docAddress){\r\n                break;\r\n            }\r\n        }\r\n        for(j=i;j<acc[msg.sender].length-1;j++){\r\n            acc[msg.sender][j]=acc[msg.sender][j+1]; \r\n        }\r\n        //delete acc[msg.sender][i];\r\n        acc[msg.sender].pop();\r\n        for(i=0;i<plist[docAddress].length;i++){\r\n            if(plist[docAddress][i]==msg.sender){\r\n                break;\r\n            }\r\n        }\r\n        for(j=i;j<plist[docAddress].length-1;j++){\r\n            plist[docAddress][j]=plist[docAddress][j+1]; \r\n        }\r\n        plist[docAddress].pop();\r\n    }\r\n\r\n    function getAccessListForPatient(address _PaAddress) public view returns(address[] memory){\r\n        return acc[_PaAddress];\r\n    }\r\n\r\n    function getPatientListForDoc() public view returns(address[] memory){\r\n        return plist[msg.sender];\r\n    }\r\n\r\n\r\n\r\n    function Isallowed(address senderA, address _useraddress) private view returns (bool){\r\n        uint i;\r\n        while(i< acc[_useraddress].length){\r\n            if(senderA==acc[_useraddress][i]){\r\n                return true;\r\n            }\r\n            i++;\r\n        }\r\n        return false;\r\n    }\r\n\r\n}"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": false,
+      "runs": 200
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}

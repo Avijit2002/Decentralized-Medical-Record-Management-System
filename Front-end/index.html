@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>Medical Record</title>
+</head>
+<body>
+    
+    <div class="navi" style="z-index: 2; position: fixed; width: 100%;">
+        <nav class="navbar navbar-expand-lg pad ">
+            <div class="container-fluid">
+                <a class="navbar-brand h1" style="padding-left: 20px; font-family: 'Pacifico', cursive; font-size: 25px; color: white;" href="#">Medilocker</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="container fluid"><h3 style="color: white; font-size: 21px; padding-left:135px;">Patient Dashboard</h3></div>
+            <div class="container fluid">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav  mb-2 mb-lg-0 ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="connect-button" aria-current="page" style="color: white;" href="">Connect Wallet</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="bar" style="height: 90px; width: 100%;"></div>
+    <div class="row top-container">
+        <div class="col-3" style="width: 500px;">
+        </div>
+        <div class="sidenav">
+            <a href="/admin/dashboard">Dashboard</a>
+            <a href="/admin/dashboard/inventory">Medical Records</a>
+            <a href="#">Medicine Alert</a>
+            <a href="#">Nearby Doctors</a>
+            <a href="/admin/dashboard/QRgenerator">Chat</a>
+            <a href="/admin/dashboard/feedpost">Support</a>
+            <a href="/admin/dashboard/feedpost">Log out</a>
+        </div>
+        <div class="contents" style="padding-left: 230px;">
+            <div class="top-container">
+                <div class="address">
+                    <h5 style="display: inline; margin: 0;">Your Address:</h5>
+                    <p id="address" style="display: inline; margin: 0;"></p>
+                </div>
+                <div class="name">
+                    <h2 style="text-align: left; padding-left: 30px;">Welcome Avijit!!!</h2>
+                </div>
+                <div style="padding-left: 20px;">
+                    <ul style="padding-top: 30px; font-size: 20px;">
+                        <li style="text-align: left; ">Make sure your wallet is connected.</li>
+                        <li style="text-align: left; ">Manage your medical records from medical records section.</li>
+                        <li style="text-align: left; ">You can search nearby doctors and can take online support from chat section.</li>
+                        <li style="text-align: left; ">You can also book appointment.</li>
+                    </ul>
+                </div>
+                
+            </div>
+            <div class="medical-records">
+                <div class="records">
+                    <h2>Medical Records</h2>
+                    <div class="record">
+                        <h4>See your records:</h4>
+                        <button class="button-35" id="fetch-doc" role="button" style="margin-left: 15px;">Fetch</button><br>
+                        <div class="docs" id="docs" style="margin-top: 40px;"></div>
+                        <br><br><br>
+                        <h4>Upload Record:</h4>
+                        <input type="file" id="file-input" style="margin-left: 10px;">
+                        <button class="button-35" id="upload-patient" role="button" style="margin-left: 15px;">Upload</button>
+                        <br><br><br>
+                        <h4>Share Documents to doctor:</h4><br><br>
+                        <label for="">Enter Address of doctor</label>
+                        <input type="text" id="address-input">
+                        <button class="button-35" role="button" id="address-input-button" style="margin-left: 15px;">Share</button><br>
+                        <br><br>
+                        <h4>Manage Access:</h4><br><br>
+                        <h6>See who can access your files:</h6>
+                        <button class="button-35" id="see-access-list" style="margin-left: 15px;" role="button">Check</button><br><br>
+                        <div id="acc-add"></div><br><br>
+                        <h6>Revoke Access:</h6>
+                        <label for="">Enter Address to revoke</label>
+                        <input type="text" id="revoke-address-input">
+                        <button class="button-35" id="revoke-address-button" style="margin-left: 15px;" role="button">Revoke</button>
+                    </div>
+                </div>
+
+                <!-- <div class="main">
+                    <button class="connect" id="connect-button">Connect</button>
+                    <h3 id="" style="margin-bottom: 15px;"></h3>
+                    <h1>Medical Record</h1>
+                    <div class="user-upload">
+                        <h3>Upload Document (Patient)</h3>
+                        <input type="file" id="">
+                        <button id="">Upload Document</button>
+                    </div>
+                    <div class="user-upload">
+                        <h3>Get Document (Patient)</h3>
+                        <button id="">Fetch Doc</button>
+                    </div>
+                    <a id="data"></a>
+                    
+                </div> -->
+            </div>
+            
+            
+            
+        </div>
+    </div>
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./ipfs.js" type="module"></script>
+    <script src="app.js" type="module"></script>
+
+</body>
+</html>
